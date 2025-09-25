@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Simulation - CyberSecuriTeen</title>
+  <link rel="stylesheet" href="styles.css" />
+  <script defer src="script.js"></script>
+</head>
+<body>
+  <nav class="navbar">
+    <h1>CyberSecuriTeen Simulation</h1>
+  </nav>
+
+  <section class="simulation">
+    <h2>Fake Facebook Login</h2>
+    <input type="text" placeholder="Email or Phone" />
+    <input type="password" placeholder="Password" />
+    <button onclick="showWarning()">Login</button>
+  </section>
+
+  <div id="warningPopup" class="popup hidden">
+    <div class="popup-content">
+      <h3>⚠️ Phishing Alert</h3>
+      <p>This page looks suspicious. Don’t enter your personal info!</p>
+      <button onclick="closeWarning()">Got it</button>
+    </div>
+  </div>
+</body>
+</html>
