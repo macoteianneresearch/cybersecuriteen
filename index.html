@@ -1,31 +1,161 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>CyberSecuriTeen</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>CyberSecuriTeen — Demo</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css" />
-  <script defer src="script.js"></script>
+  <script defer src="app.js"></script>
 </head>
 <body>
-  <nav class="navbar">
-    <h1>CyberSecuriTeen</h1>
-    <ul>
-      <li><a href="index.html">Home</a></li>
-      <li><a href="login.html">Login</a></li>
-      <li><a href="dashboard.html">Dashboard</a></li>
-      <li><a href="simulation.html">Simulation</a></li>
-    </ul>
-  </nav>
+  <div class="app-bg"></div>
 
-  <section class="hero">
-    <h2>Protecting Teens in the Digital World</h2>
-    <p>Learn about online safety and test your skills with our phishing simulations.</p>
-    <a href="simulation.html" class="btn-primary">Start Simulation</a>
-  </section>
+  <header class="topbar">
+    <div class="brand">Cyber<span>Securi</span>Teen</div>
+    <nav class="nav">
+      <button id="btnHome" class="link">Home</button>
+      <button id="btnLearn" class="link">Learn</button>
+      <button id="btnSim" class="link">Simulate</button>
+      <button id="btnDashboard" class="link">Dashboard</button>
+    </nav>
+    <div class="auth">
+      <button id="openLogin" class="pill">Login / Signup</button>
+    </div>
+  </header>
 
-  <footer>
-    <p>© 2025 CyberSecuriTeen. Stay safe online!</p>
+  <main class="container">
+    <section id="hero" class="hero card glass">
+      <h1>Protecting Teens in the Digital World</h1>
+      <p class="lead">Interactive training and full-device style simulations that teach teens how to spot scams and phishing — with a parent monitoring dashboard.</p>
+      <div class="cta-row">
+        <button id="startLearn" class="btn primary">Start Learning</button>
+        <button id="startSim" class="btn ghost">Open Simulation</button>
+      </div>
+    </section>
+
+    <section id="learn" class="panel hidden">
+      <h2>Lessons</h2>
+      <div class="grid">
+        <article class="card glass small">
+          <h3>Recognizing Scams</h3>
+          <p>Scams pressure you to act fast. Always check sender, URL, and spelling.</p>
+          <button class="btn small" data-action="complete-lesson" data-title="Recognizing Scams">Mark Read</button>
+        </article>
+        <article class="card glass small">
+          <h3>Secure Passwords</h3>
+          <p>Use long unique passwords and enable 2FA.</p>
+          <button class="btn small" data-action="complete-lesson" data-title="Secure Passwords">Mark Read</button>
+        </article>
+        <article class="card glass small">
+          <h3>Privacy Settings</h3>
+          <p>Limit public profile info and review app permissions.</p>
+          <button class="btn small" data-action="complete-lesson" data-title="Privacy Settings">Mark Read</button>
+        </article>
+      </div>
+    </section>
+
+    <section id="simulate" class="panel hidden">
+      <h2>Simulation Lab</h2>
+      <div class="sim-shell card glass">
+        <div class="sim-top">
+          <div class="tabs">
+            <button class="tab active" data-tab="google">Google</button>
+            <button class="tab" data-tab="gmail">Gmail</button>
+            <button class="tab" data-tab="facebook">Facebook</button>
+          </div>
+          <div class="sim-note">Tip: Click suspicious items to see a translucent iOS-style warning.</div>
+        </div>
+
+        <div class="sim-body">
+          <div class="sim-screen" id="sim-google">
+            <input class="search" placeholder="Search 'win free phone'..." />
+            <div class="result legit">
+              <div class="title">Official University Scholarships</div>
+              <div class="meta">university-example.edu • Secure</div>
+              <div class="desc">Apply for official scholarship awards.</div>
+            </div>
+            <div class="result suspicious" data-scan="search-result" data-reason="suspicious-url">
+              <div class="title">You won a free phone - click now!</div>
+              <div class="meta">freeprize-claim-now.xyz • Not secure</div>
+              <div class="desc">This result pressures you to act fast — possible scam.</div>
+              <div class="actions"><button class="btn small warn">Inspect</button></div>
+            </div>
+          </div>
+
+          <div class="sim-screen hidden" id="sim-gmail">
+            <div class="email-list">
+              <div class="email" data-scan="email" data-reason="phishing-email">
+                <div class="from">security@accounts-verify-login.com</div>
+                <div class="subject">Action required: Confirm your account</div>
+              </div>
+              <div class="email legit">
+                <div class="from">friend@example.com</div>
+                <div class="subject">Coffee later?</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="sim-screen hidden" id="sim-facebook">
+            <div class="post" data-scan="post" data-reason="scam-post">
+              <div class="post-user">Free iPhone Giveaway</div>
+              <div class="post-body">Win ₱50,000 now — click to claim!</div>
+            </div>
+            <div class="post legit">
+              <div class="post-user">Your classmate</div>
+              <div class="post-body">Photos from our trip — check them out!</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="dashboard" class="panel hidden">
+      <h2>Parent Dashboard</h2>
+      <div class="card glass">
+        <h3>Activity Feed</h3>
+        <div id="activityFeed" class="activity"></div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Login Modal -->
+  <div id="modalLogin" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="loginTitle">
+    <div class="modal-card glass">
+      <h3 id="loginTitle">Login / Signup</h3>
+      <form id="loginForm" class="form-grid">
+        <input name="name" placeholder="Full name" required />
+        <input name="birthday" type="date" required />
+        <input name="age" type="number" placeholder="Age" required />
+        <input name="scanId" placeholder="Scan ID (text)" required />
+        <select name="role" required>
+          <option value="teen">Teen</option>
+          <option value="parent">Parent</option>
+        </select>
+        <div class="form-actions">
+          <button type="submit" class="btn primary">Enter</button>
+          <button type="button" id="closeLogin" class="btn ghost">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- iOS-style translucent warning -->
+  <div id="iosWarning" class="ios-warning hidden" role="alert" aria-live="assertive">
+    <div class="ios-card">
+      <div class="ios-title">⚠️ Suspicious Content Detected</div>
+      <div class="ios-body">This looks like a phishing attempt. Don’t enter credentials or click links. Report it?</div>
+      <div class="ios-actions">
+        <button id="reportBtn" class="btn danger">Report</button>
+        <button id="dismissBtn" class="btn ghost">Dismiss</button>
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div>© 2025 CyberSecuriTeen — Demo</div>
+    <div class="small">Designed for contest demo • Simulations are safe, no real accounts used.</div>
   </footer>
 </body>
 </html>
